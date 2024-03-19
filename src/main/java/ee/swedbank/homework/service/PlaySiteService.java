@@ -27,7 +27,7 @@ public class PlaySiteService implements CrudSupport<PlaySite, PlaySiteData, Long
         PlaySite playSite = PlaySite.builder()
                 .playground(playground)
                 .name(playSiteData.getName())
-                .maximumKidCapacity(playSiteData.getMaximumKidCapacity())
+                .maximumKidVisitingCount(playSiteData.getMaximumKidVisitingCount())
                 .build();
         return playSiteRepository.save(playSite);
     }
@@ -39,7 +39,7 @@ public class PlaySiteService implements CrudSupport<PlaySite, PlaySiteData, Long
         Playground playground = playgroundService.get(playSiteData.getPlaygroundId());
         playSite.setPlayground(playground);
         playSite.setName(playSiteData.getName());
-        playSite.setMaximumKidCapacity(playSiteData.getMaximumKidCapacity());
+        playSite.setMaximumKidVisitingCount(playSiteData.getMaximumKidVisitingCount());
         return playSite;
     }
 

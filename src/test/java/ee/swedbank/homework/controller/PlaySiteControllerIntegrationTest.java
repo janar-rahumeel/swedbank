@@ -40,7 +40,7 @@ class PlaySiteControllerIntegrationTest extends AbstractRestControllerIntegratio
         assertThat(playSiteData.getId(), is(notNullValue()));
         assertThat(playSiteData.getPlaygroundId(), is(1L));
         assertThat(playSiteData.getName(), is("Play site name 1"));
-        assertThat(playSiteData.getMaximumKidCapacity(), is((short) 10));
+        assertThat(playSiteData.getMaximumKidVisitingCount(), is((short) 10));
         assertThat(playSiteData.getAttractionIds(), hasItem(1L));
     }
 
@@ -65,7 +65,7 @@ class PlaySiteControllerIntegrationTest extends AbstractRestControllerIntegratio
         assertThat(playSiteData.getId(), is(notNullValue()));
         assertThat(playSiteData.getPlaygroundId(), is(2L));
         assertThat(playSiteData.getName(), is("Play site name 2"));
-        assertThat(playSiteData.getMaximumKidCapacity(), is((short) 20));
+        assertThat(playSiteData.getMaximumKidVisitingCount(), is((short) 20));
     }
 
 }

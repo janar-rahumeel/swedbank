@@ -28,7 +28,7 @@ public class PlaySiteData {
     private String name;
 
     @NotNull
-    private Short maximumKidCapacity;
+    private Short maximumKidVisitingCount;
 
     private Set<Long> attractionIds;
 
