@@ -1,6 +1,7 @@
 package ee.swedbank.homework.controller;
 
 import ee.swedbank.homework.AbstractRestControllerIntegrationTest;
+import ee.swedbank.homework.controller.model.CurrentUtilizationData;
 import ee.swedbank.homework.controller.model.PlaySiteData;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpEntity;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -66,6 +68,26 @@ class PlaySiteControllerIntegrationTest extends AbstractRestControllerIntegratio
         assertThat(playSiteData.getPlaygroundId(), is(2L));
         assertThat(playSiteData.getName(), is("Play site name 2"));
         assertThat(playSiteData.getMaximumKidVisitingCount(), is((short) 20));
+    }
+
+    @Sql("/sql/testThatPlaySiteCurrentUtilizationIsSuccessful.sql")
+    @Test
+    void testThatPlaySiteCurrentUtilizationIsSuccessful() {
+        // given
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+        HttpEntity<String> httpEntity = new HttpEntity<>(httpHeaders);
+
+        // when
+        ResponseEntity<CurrentUtilizationData> responseEntity = testRestTemplate
+                .exchange("/v1/play-sites/3/current-utilization", HttpMethod.GET, httpEntity, CurrentUtilizationData.class);
+
+        // then
+        assertThat(responseEntity.getStatusCode(), is(HttpStatus.OK));
+
+        CurrentUtilizationData currentUtilizationData = responseEntity.getBody();
+        assertThat(currentUtilizationData, is(notNullValue()));
+        assertThat(currentUtilizationData.getPercentage(), is(new BigDecimal("100.00")));
     }
 
 }

@@ -1,6 +1,7 @@
 package ee.swedbank.homework.controller;
 
 import ee.swedbank.homework.controller.mapper.PlaySiteMapper;
+import ee.swedbank.homework.controller.model.CurrentUtilizationData;
 import ee.swedbank.homework.controller.model.PlaySiteData;
 import ee.swedbank.homework.entity.PlaySite;
 import ee.swedbank.homework.service.PlaySiteService;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.math.BigDecimal;
 
 @Transactional(readOnly = true)
 @RestController
@@ -47,6 +50,13 @@ public class PlaySiteController {
         PlaySite playSite = playSiteService.update(id, updatedPlaySiteData);
         PlaySiteData playSiteData = playSiteMapper.map(playSite);
         return ResponseEntity.ok(playSiteData);
+    }
+
+    @GetMapping(value = "/{id}/current-utilization", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public ResponseEntity<CurrentUtilizationData> currentUtilization(@PathVariable("id") Long id) {
+        BigDecimal currentUtilizationPercentage = playSiteService.resolveCurrentUtilizationPercentage(id);
+        return ResponseEntity.ok(CurrentUtilizationData.builder().percentage(currentUtilizationPercentage).build());
     }
 
 }
