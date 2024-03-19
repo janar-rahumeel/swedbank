@@ -40,7 +40,7 @@ public class Attraction extends AbstractEntity<Long> {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "PLA_SITE_ID")
+    @JoinColumn(name = "PLAY_SITE_ID")
     private PlaySite playSite;
 
     @Column(name = "SERIAL_NUMBER")

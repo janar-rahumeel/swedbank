@@ -10,7 +10,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -53,7 +52,6 @@ public class PlaySite extends AbstractEntity<Long> {
     @NotNull
     private Short maximumKidCapacity;
 
-    @NotEmpty
     @OneToMany(mappedBy = "playSite")
     @Builder.Default
     private Set<Attraction> attractions = new HashSet<>();

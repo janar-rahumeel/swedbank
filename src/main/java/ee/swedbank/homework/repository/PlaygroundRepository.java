@@ -1,4 +1,7 @@
 package ee.swedbank.homework.repository;
 
-public interface PlaygroundRepository {
+import ee.swedbank.homework.entity.Playground;
+import org.springframework.data.repository.CrudRepository;
+
+public interface PlaygroundRepository extends CrudRepository<Playground, Long> {
 }
